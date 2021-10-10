@@ -154,5 +154,13 @@ public class AminoAcid {
     public void setMethcystine(String methcystine) {
         this.methcystine = methcystine;
     }
+
+    public Set<Dog> getDogs() {
+        return dogs;
+    }
+
+    public void setDogs(Set<Dog> dogs) {
+        this.dogs = dogs;
+    }
 }
 
