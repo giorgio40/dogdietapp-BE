@@ -42,4 +42,12 @@ public class Protein {
     public void setProtein(String protein) {
         this.protein = protein;
     }
+
+    public Set<Dog> getDogs() {
+        return dogs;
+    }
+
+    public void setDogs(Set<Dog> dogs) {
+        this.dogs = dogs;
+    }
 }

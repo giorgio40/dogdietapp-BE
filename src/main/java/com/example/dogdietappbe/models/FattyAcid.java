@@ -21,9 +21,10 @@ public class FattyAcid {
 
     private String ala;
 
-    @ManyToMany(mappedBy = "fattyacids")
-    @JsonIgnoreProperties(value = "fattyacids", allowSetters = true)
+    @ManyToMany(mappedBy = "aminoacids")
+    @JsonIgnoreProperties(value = "payments", allowSetters = true)
     private Set<Dog> dogs = new HashSet<>();
+
 
     public FattyAcid() {
     }
@@ -73,5 +74,13 @@ public class FattyAcid {
 
     public void setAla(String ala) {
         this.ala = ala;
+    }
+
+    public Set<Dog> getDogs() {
+        return dogs;
+    }
+
+    public void setDogs(Set<Dog> dogs) {
+        this.dogs = dogs;
     }
 }

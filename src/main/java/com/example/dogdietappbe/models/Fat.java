@@ -50,4 +50,6 @@ public class Fat {
     public void setDogs(Set<Dog> dogs) {
         this.dogs = dogs;
     }
+
+
 }

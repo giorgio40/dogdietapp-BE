@@ -167,4 +167,12 @@ public class Mineral {
     public void setSe(String se) {
         Se = se;
     }
+
+    public Set<Dog> getDogs() {
+        return dogs;
+    }
+
+    public void setDogs(Set<Dog> dogs) {
+        this.dogs = dogs;
+    }
 }

@@ -40,4 +40,12 @@ public class Vegetable {
     public void setVegetable(String vegetable) {
         this.vegetable = vegetable;
     }
+
+    public Set<Dog> getDogs() {
+        return dogs;
+    }
+
+    public void setDogs(Set<Dog> dogs) {
+        this.dogs = dogs;
+    }
 }
