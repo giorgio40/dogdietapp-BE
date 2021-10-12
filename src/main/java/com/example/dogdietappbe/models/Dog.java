@@ -20,28 +20,6 @@ public class Dog {
 
 
     @ManyToMany()
-    @JoinTable(name = "dogvitamins",
-            joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name = "vitaminid"))
-    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
-    Set<Vitamin> vitamins = new HashSet<>();
-
-    @ManyToMany()
-    @JoinTable(name = "dogminerals",
-            joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name = "mineralid"))
-    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
-    List<Mineral> minerals = new ArrayList<>();
-
-    @ManyToMany()
-    @JoinTable(name = "dogfattyacids",
-            joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name = "fattyacidid"))
-    @JsonIgnoreProperties(value = "restaurants", allowSetters = true)
-    Set<FattyAcid> fattyacids = new HashSet<>();
-
-
-    @ManyToMany()
     @JoinTable(name = "dogfats",
             joinColumns = @JoinColumn(name = "dogid"),
             inverseJoinColumns = @JoinColumn(name = "fatid"))
@@ -58,16 +36,18 @@ public class Dog {
     @ManyToMany()
     @JoinTable(name = "dogvegetables",
             joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name = "vegetableidd"))
+            inverseJoinColumns = @JoinColumn(name = "vegetableid"))
     @JsonIgnoreProperties(value = "dogs", allowSetters = true)
     Set<Vegetable> vegetables = new HashSet<>();
 
+
     @ManyToMany()
-    @JoinTable(name = "dogaminos",
+    @JoinTable(name = "dogsupplements",
             joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name = "aminoacidid"))
+            inverseJoinColumns = @JoinColumn(name ="supplementid"))
     @JsonIgnoreProperties(value = "dogs", allowSetters = true)
-    Set<AminoAcid> aminoacids = new HashSet<>();
+    Set<Supplement> supplements = new HashSet<>();
+
 
 
     public Dog() {
@@ -102,30 +82,6 @@ public class Dog {
         this.calories = calories;
     }
 
-    public Set<Vitamin> getVitamins() {
-        return vitamins;
-    }
-
-    public void setVitamins(Set<Vitamin> vitamins) {
-        this.vitamins = vitamins;
-    }
-
-    public List<Mineral> getMinerals() {
-        return minerals;
-    }
-
-    public void setMinerals(List<Mineral> minerals) {
-        this.minerals = minerals;
-    }
-
-    public Set<FattyAcid> getFattyacids() {
-        return fattyacids;
-    }
-
-    public void setFattyacids(Set<FattyAcid> fattyacids) {
-        this.fattyacids = fattyacids;
-    }
-
     public Set<Fat> getFats() {
         return fats;
     }
@@ -150,11 +106,11 @@ public class Dog {
         this.vegetables = vegetables;
     }
 
-    public Set<AminoAcid> getAminoacids() {
-        return aminoacids;
+    public Set<Supplement> getSupplements() {
+        return supplements;
     }
 
-    public void setAminoacids(Set<AminoAcid> aminoacids) {
-        this.aminoacids = aminoacids;
+    public void setSupplements(Set<Supplement> supplements) {
+        this.supplements = supplements;
     }
 }
