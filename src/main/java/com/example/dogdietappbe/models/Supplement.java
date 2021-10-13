@@ -3,19 +3,16 @@ package com.example.dogdietappbe.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "supplements")
-
 public class Supplement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String supplementid;
+    private long supplementid;
 
     private String supplement1;
 
@@ -33,19 +30,14 @@ public class Supplement {
 
     private String supplement8;
 
-    private String supplement9;
-
     @ManyToMany(mappedBy = "supplements")
-    @JsonIgnoreProperties(value = "supplementss", allowSetters = true)
+    @JsonIgnoreProperties(value = "supplements", allowSetters = true)
     private Set<Dog> dogs = new HashSet<>();
-
-
 
     public Supplement() {
     }
 
-
-    public Supplement(String supplement1, String supplement2, String supplement3, String supplement4, String supplement5, String supplement6, String supplement7, String supplement8, String supplement9) {
+    public Supplement(String supplement1, String supplement2, String supplement3, String supplement4, String supplement5, String supplement6, String supplement7, String supplement8) {
         this.supplement1 = supplement1;
         this.supplement2 = supplement2;
         this.supplement3 = supplement3;
@@ -54,14 +46,13 @@ public class Supplement {
         this.supplement6 = supplement6;
         this.supplement7 = supplement7;
         this.supplement8 = supplement8;
-        this.supplement9 = supplement9;
     }
 
-    public String getSupplementid() {
+    public long getSupplementid() {
         return supplementid;
     }
 
-    public void setSupplementid(String supplementid) {
+    public void setSupplementid(long supplementid) {
         this.supplementid = supplementid;
     }
 
@@ -127,14 +118,6 @@ public class Supplement {
 
     public void setSupplement8(String supplement8) {
         this.supplement8 = supplement8;
-    }
-
-    public String getSupplement9() {
-        return supplement9;
-    }
-
-    public void setSupplement9(String supplement9) {
-        this.supplement9 = supplement9;
     }
 
     public Set<Dog> getDogs() {

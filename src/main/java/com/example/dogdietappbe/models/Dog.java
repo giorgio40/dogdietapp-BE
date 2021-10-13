@@ -106,7 +106,7 @@ public class Dog {
         this.vegetables = vegetables;
     }
 
-    public Set<Supplement> getSupplements() {
+    public Set<Supplement> getSupplements(Supplement s1) {
         return supplements;
     }
 
