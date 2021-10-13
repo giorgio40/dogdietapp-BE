@@ -21,8 +21,8 @@ public class Fat {
         this.fat = fat;
     }
 
-    @ManyToMany(mappedBy = "fats")
-    @JsonIgnoreProperties(value = "fats", allowSetters = true)
+    @ManyToMany(mappedBy = "supplements")
+    @JsonIgnoreProperties(value = "supplements", allowSetters = true)
     private Set<Dog> dogs = new HashSet<>();
 
 
