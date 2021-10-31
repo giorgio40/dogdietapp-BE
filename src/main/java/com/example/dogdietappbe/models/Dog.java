@@ -3,9 +3,7 @@ package com.example.dogdietappbe.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 @Entity
 @Table(name="dogs")
@@ -18,35 +16,36 @@ public class Dog {
 
     private String calories;
 
+    @OneToMany(mappedBy = "dog",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "dog",
+            allowSetters = true)
+    private Set<DogSupplements> supplements = new HashSet<>();
 
-    @ManyToMany()
-    @JoinTable(name = "dogfats",
-            joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name = "fatid"))
-    @JsonIgnoreProperties(value = "dog", allowSetters = true)
-    Set<Fat> fats = new HashSet<>();
+    @OneToMany(mappedBy = "dog",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "dog",
+            allowSetters = true)
+    private Set<DogFat> fats = new HashSet<>();
 
-    @ManyToMany()
-    @JoinTable(name = "dogproteins",
-            joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name = "proteinid"))
-    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
-    Set<Protein> proteins = new HashSet<>();
+    @OneToMany(mappedBy = "dog",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "dog",
+            allowSetters = true)
+    private Set<DogVegetables> vegetables = new HashSet<>();
 
-    @ManyToMany()
-    @JoinTable(name = "dogvegetables",
-            joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name = "vegetableid"))
-    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
-    Set<Vegetable> vegetables = new HashSet<>();
+    @OneToMany(mappedBy = "dog",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "dog",
+            allowSetters = true)
+    private Set<DogProteins> proteins = new HashSet<>();
 
 
-    @ManyToMany()
-    @JoinTable(name = "dogsupplements",
-            joinColumns = @JoinColumn(name = "dogid"),
-            inverseJoinColumns = @JoinColumn(name ="supplementid"))
-    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
-    Set<Supplement> supplements = new HashSet<>();
+
 
 
 
@@ -82,35 +81,12 @@ public class Dog {
         this.calories = calories;
     }
 
-    public Set<Fat> getFats() {
-        return fats;
-    }
-
-    public void setFats(Set<Fat> fats) {
-        this.fats = fats;
-    }
-
-    public Set<Protein> getProteins() {
-        return proteins;
-    }
-
-    public void setProteins(Set<Protein> proteins) {
-        this.proteins = proteins;
-    }
-
-    public Set<Vegetable> getVegetables() {
-        return vegetables;
-    }
-
-    public void setVegetables(Set<Vegetable> vegetables) {
-        this.vegetables = vegetables;
-    }
-
-    public Set<Supplement> getSupplements(Supplement s1) {
+    public Set<DogSupplements> getSupplements() {
         return supplements;
     }
 
-    public void setSupplements(Set<Supplement> supplements) {
+    public void setSupplements(Set<DogSupplements> supplements) {
         this.supplements = supplements;
     }
 }
+
