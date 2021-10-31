@@ -19,9 +19,9 @@ public class Protein {
     public Protein() {
     }
 
-    @ManyToMany(mappedBy = "proteins")
+    @ManyToOne()
     @JsonIgnoreProperties(value = "proteins", allowSetters = true)
-    private Set<Dog> dogs = new HashSet<>();
+    private Dog dog;
 
     public Protein(String protein) {
         this.protein = protein;
@@ -43,11 +43,11 @@ public class Protein {
         this.protein = protein;
     }
 
-    public Set<Dog> getDogs() {
-        return dogs;
+    public Dog getDog() {
+        return dog;
     }
 
-    public void setDogs(Set<Dog> dogs) {
-        this.dogs = dogs;
+    public void setDog(Dog dog) {
+        this.dog = dog;
     }
 }

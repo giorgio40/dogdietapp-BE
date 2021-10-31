@@ -30,9 +30,13 @@ public class Supplement {
 
     private String supplement8;
 
-    @ManyToMany(mappedBy = "supplements")
-    @JsonIgnoreProperties(value = "supplements", allowSetters = true)
-    private Set<Dog> dogs = new HashSet<>();
+    @OneToMany(mappedBy = "supplement",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "supplement",
+            allowSetters = true)
+    private Set<DogSupplements> dogs = new HashSet<>();
+
 
     public Supplement() {
     }
@@ -118,13 +122,5 @@ public class Supplement {
 
     public void setSupplement8(String supplement8) {
         this.supplement8 = supplement8;
-    }
-
-    public Set<Dog> getDogs() {
-        return dogs;
-    }
-
-    public void setDogs(Set<Dog> dogs) {
-        this.dogs = dogs;
     }
 }

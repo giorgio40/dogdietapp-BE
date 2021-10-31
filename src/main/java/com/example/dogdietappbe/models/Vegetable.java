@@ -17,7 +17,7 @@ public class Vegetable {
     public Vegetable() {
     }
 
-    @ManyToMany(mappedBy = "vegetables")
+    @ManyToMany()
     @JsonIgnoreProperties(value = "payments", allowSetters = true)
     private Set<Dog> dogs = new HashSet<>();
 
