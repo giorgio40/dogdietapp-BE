@@ -85,6 +85,30 @@ public class Dog {
         return supplements;
     }
 
+    public Set<DogFat> getFats() {
+        return fats;
+    }
+
+    public void setFats(Set<DogFat> fats) {
+        this.fats = fats;
+    }
+
+    public Set<DogVegetables> getVegetables() {
+        return vegetables;
+    }
+
+    public void setVegetables(Set<DogVegetables> vegetables) {
+        this.vegetables = vegetables;
+    }
+
+    public Set<DogProteins> getProteins() {
+        return proteins;
+    }
+
+    public void setProteins(Set<DogProteins> proteins) {
+        this.proteins = proteins;
+    }
+
     public void setSupplements(Set<DogSupplements> supplements) {
         this.supplements = supplements;
     }
