@@ -1,18 +1,30 @@
 package com.example.dogdietappbe.services;
 
+import com.example.dogdietappbe.exceptions.ResourceNotFoundException;
 import com.example.dogdietappbe.models.Role;
+import com.example.dogdietappbe.repositories.RoleRepository;
 import com.example.dogdietappbe.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleServiceImpl implements RoleService {
-
+@Transactional
+@Service(value = "roleService")
+public class RoleServiceImpl
+        implements RoleService
+{
+    /**
+     * Connects this service to the Role Model
+     */
     @Autowired
     RoleRepository rolerepos;
+
+
+
 
     /**
      * Connect this service to the User Model
@@ -64,8 +76,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Transactional
     @Override
-    public Role save(Role role)
-    {
+    public Role save(Role role) throws ResourceFoundException {
         if (role.getUsers()
                 .size() > 0)
         {
@@ -86,8 +97,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role update(
             long id,
-            Role role)
-    {
+            Role role) throws ResourceFoundException {
         if (role.getName() == null)
         {
             throw new ResourceNotFoundException("No role name found to update!");
@@ -108,11 +118,3 @@ public class RoleServiceImpl implements RoleService {
         return findRoleById(id);
     }
 }
-
-
-
-
-
-
-
-

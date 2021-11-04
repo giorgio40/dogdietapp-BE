@@ -27,7 +27,7 @@ public interface RoleService {
      * @param role the role object to be saved
      * @return the saved role object including any automatically generated fields
      */
-    Role save(Role role);
+    Role save(Role role) throws ResourceFoundException;
 
     /**
      * Find the first Role object matching the given name
@@ -51,7 +51,7 @@ public interface RoleService {
      */
     Role update(
             long id,
-            Role role);
+            Role role) throws ResourceFoundException;
 }
 
 
