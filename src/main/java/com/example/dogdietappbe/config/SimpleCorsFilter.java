@@ -13,7 +13,8 @@ import java.io.IOException;
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter
-        implements Filter {
+        implements Filter
+{
     @Override
     public void doFilter(
             ServletRequest servletRequest,
@@ -21,7 +22,8 @@ public class SimpleCorsFilter
             FilterChain filterChain)
             throws
             IOException,
-            ServletException {
+            ServletException
+    {
         // Convert our request and response to Http ones. If they are not Http ones, an exception would be thrown
         // that would handled by our exception handler!
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -48,9 +50,11 @@ public class SimpleCorsFilter
                 "3600");
 
         if (HttpMethod.OPTIONS.name()
-                .equalsIgnoreCase(request.getMethod())) {
+                .equalsIgnoreCase(request.getMethod()))
+        {
             response.setStatus(HttpServletResponse.SC_OK);
-        } else {
+        } else
+        {
             filterChain.doFilter(servletRequest,
                     servletResponse);
         }

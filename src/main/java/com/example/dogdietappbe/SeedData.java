@@ -3,6 +3,8 @@ package com.example.dogdietappbe;
 import com.example.dogdietappbe.models.*;
 import com.example.dogdietappbe.repositories.DogRepository;
 import com.example.dogdietappbe.services.DogServices;
+import com.example.dogdietappbe.services.RoleService;
+import com.example.dogdietappbe.services.UserService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,7 +22,11 @@ public class SeedData implements CommandLineRunner {
     @Autowired
     private DogRepository dogrepos;
 
+    @Autowired
+    private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
 
 
     @Transactional
@@ -50,6 +56,28 @@ public class SeedData implements CommandLineRunner {
         Supplement s9 = new Supplement("Thiamine B1 Naturemade .3 gram","Standard Process Choline 1 gram","Standard Process Vit E Cataplex E 2 gram","Kal Bonemeal 10 grams","Standard Process Zinc Liver Chelate 2.5 grams","Now Potassium Chloride 1.1gram","Starwest Botanicals Kelp 1 gram","Innovative Research Vit D 1 gram");
         Supplement s10 = new Supplement("Nutiva Hempseed 9 grams","Standard Process Choline 1 gram","Standard Process Vitamin E Cataplex E 5.5 grams","NatureMade Thiamine-B1 .30gram","KAL Bonemeal 10 grams","Starwest Botanicals Kelp 1 gram","Standard Process Zinc liver Chelate 3 gram","NOW k Potassium Chloride 1.4 grams");
 
+        Role r1 = new Role("admin");
+        Role r2 = new Role("user");
+        Role r3 = new Role("data");
+
+//        r1 = roleService.save(r1);
+//        r2 = roleService.save(r2);
+//        r3 = roleService.save(r3);
+
+        // admin, data, user
+        User u1 = new User("admin",
+                "password");
+        u1.getRoles()
+                .add(new UserRoles(u1,
+                        r1));
+        u1.getRoles()
+                .add(new UserRoles(u1,
+                        r2));
+        u1.getRoles()
+                .add(new UserRoles(u1,
+                        r3));
+
+        userService.save(u1);
 
     }
 

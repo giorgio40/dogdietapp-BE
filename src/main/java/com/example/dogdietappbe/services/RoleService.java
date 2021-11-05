@@ -1,5 +1,6 @@
 package com.example.dogdietappbe.services;
 
+import com.example.dogdietappbe.exceptions.ResourceFoundException;
 import com.example.dogdietappbe.models.Role;
 
 import java.util.List;

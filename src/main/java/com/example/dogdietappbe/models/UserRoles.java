@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
 @Entity
 @Table(name = "userroles")
 @IdClass(UserRolesId.class)
-public class UserRoles {
+public class UserRoles implements Serializable {
 
 
     @Id

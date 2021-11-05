@@ -2,21 +2,13 @@ package com.example.dogdietappbe.services;
 
 import com.example.dogdietappbe.models.User;
 import com.example.dogdietappbe.repositories.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityNotFoundException;
 
-// make sure the user that is in the import be the one from this application, not core security
-// import org.springframework.security.core.userdetails.User;
-
-/**
- * This implements User Details Service that allows us to authenticate a user.
- */
 @Service(value = "securityUserService")
 public class SecurityUserServiceImpl
         implements UserDetailsService

@@ -1,7 +1,9 @@
 package com.example.dogdietappbe.models;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
-
+import java.util.Objects;
+@Embeddable
 public class DogSupplementId implements Serializable {
 
     private long dog;
@@ -44,5 +46,10 @@ public class DogSupplementId implements Serializable {
 
         return dog == that.dog &&
                 supplement == that.supplement;
+    }
+
+    @Override
+    public int hashCode() {
+        return 37;
     }
 }
