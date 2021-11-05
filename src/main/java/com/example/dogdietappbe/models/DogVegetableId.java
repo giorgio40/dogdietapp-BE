@@ -1,7 +1,8 @@
 package com.example.dogdietappbe.models;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
-
+@Embeddable
 public class DogVegetableId implements Serializable {
 
     private long dog;

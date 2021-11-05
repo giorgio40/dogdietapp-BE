@@ -11,7 +11,8 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig
-        extends ResourceServerConfigurerAdapter {
+        extends ResourceServerConfigurerAdapter
+{
     /**
      * We can have multiple resource servers in place. This ties this resource server to this application
      */
@@ -23,7 +24,8 @@ public class ResourceServerConfig
      * @param resources the resource server
      */
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) {
+    public void configure(ResourceServerSecurityConfigurer resources)
+    {
         // stateless refers to only working with access tokens. Testing using a different schema
         // so stateless must be false.
         resources.resourceId(RESOURCE_ID)
@@ -39,7 +41,8 @@ public class ResourceServerConfig
     @Override
     public void configure(HttpSecurity http)
             throws
-            Exception {
+            Exception
+    {
         // our antMatchers control which roles of users have access to which endpoints
         // we must order our antmatchers from most restrictive to least restrictive.
         // So restrict at method level before restricting at endpoint level.
@@ -57,31 +60,21 @@ public class ResourceServerConfig
                         "/createnewuser")
                 .permitAll()
                 .antMatchers(HttpMethod.POST,
-                        "/menus/**",
-                        "/payments/**",
-                        "/restaurants/**")
+                        "/menus/**", "/payments/**", "/restaurants/**")
                 .hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,
-                        "/menus/**",
-                        "/payments/**",
-                        "/restaurants/**")
+                        "/menus/**", "/payments/**", "/restaurants/**")
                 .hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.PUT,
-                        "/menus/**",
-                        "/payments/**",
-                        "/restaurants/**")
+                        "/menus/**", "/payments/**", "/restaurants/**")
                 .hasAnyRole("ADMIN")
-                .antMatchers("/users/**",
-                        "/restaurants/**",
-                        "/payments/**",
-                        "/menus/**",
+                .antMatchers("/users/**", "/restaurants/**", "/payments/**", "/menus/**",
                         "/oauth/revoke-token",
                         "/logout")
                 .authenticated()
                 .antMatchers("/roles/**")
                 .hasAnyRole("ADMIN")
-                .anyRequest()
-                .denyAll() // deny any endpoint that is not explicitly given access rights
+                .anyRequest().denyAll() // deny any endpoint that is not explicitly given access rights
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());
@@ -111,3 +104,4 @@ public class ResourceServerConfig
                 .disable();
     }
 }
+

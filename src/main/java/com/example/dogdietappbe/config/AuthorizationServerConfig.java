@@ -2,7 +2,6 @@ package com.example.dogdietappbe.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -13,7 +12,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Configuration
 @EnableAuthorizationServer
-@PropertySource("file:/Users/lambdajohn/shoppingcartconf.properties")
 public class AuthorizationServerConfig
         extends AuthorizationServerConfigurerAdapter
 {
@@ -105,9 +103,6 @@ public class AuthorizationServerConfig
                         SCOPE_WRITE,
                         SCOPE_TRUST)
                 .accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS);
-
-        System.out.println("*** " + CLIENT_ID);
-        System.out.println("*** " + CLIENT_SECRET);
     }
 
     /**
