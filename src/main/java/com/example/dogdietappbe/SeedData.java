@@ -8,6 +8,7 @@ import com.example.dogdietappbe.services.UserService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.ManyToMany;
@@ -60,9 +61,9 @@ public class SeedData implements CommandLineRunner {
         Role r2 = new Role("user");
         Role r3 = new Role("data");
 
-//        r1 = roleService.save(r1);
-//        r2 = roleService.save(r2);
-//        r3 = roleService.save(r3);
+        r1 = roleService.save(r1);
+        r2 = roleService.save(r2);
+        r3 = roleService.save(r3);
 
         // admin, data, user
         User u1 = new User("admin",
