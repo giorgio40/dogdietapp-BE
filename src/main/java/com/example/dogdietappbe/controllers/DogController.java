@@ -22,7 +22,7 @@ public class DogController {
 
     @GetMapping(value = "/dog/{dogId}",
             produces = "application/json")
-    public ResponseEntity<?> getRestaurantById(
+    public ResponseEntity<?> getDogById(
             @PathVariable
                     Long dogId) {
         Dog d = dogServices.findDogById(dogId);

@@ -8,6 +8,7 @@ import com.example.dogdietappbe.services.UserService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Transactional
+@ConditionalOnProperty(
+        prefix = "command.line.runner",
+        value = "enabled",
+        havingValue = "true",
+        matchIfMissing = true)
 @Component
 public class SeedData implements CommandLineRunner {
 
@@ -91,7 +97,7 @@ public class SeedData implements CommandLineRunner {
         Vegetable v9 = new Vegetable("120gr Broccoli, 105 gr kale, 150 gr Soinach");
         Vegetable v10 = new Vegetable("120gr Broccoli, 160gr Spinach,");
 
-        d1.getFats().add(new DogFat(f1,d1));
+        d1.getFats().add(new DogFat(f1, d1));
         d1.getProteins().add(new DogProteins(d1,p1));
         d1.getVegetables().add(new DogVegetables(v1,d1));
         d1.getSupplements().add(new DogSupplements(s1,d1));
@@ -101,7 +107,7 @@ public class SeedData implements CommandLineRunner {
         d2.getFats().add(new DogFat(f2,d2));
         d2.getProteins().add(new DogProteins(d2,p2));
         d2.getVegetables().add(new DogVegetables(v2,d2));
-        d2.getSupplements().add(new DogSupplements(s1,d1));
+        d2.getSupplements().add(new DogSupplements(s2,d2));
 
         dogrepos.save(d2);
 
@@ -198,6 +204,40 @@ public class SeedData implements CommandLineRunner {
                         r3));
 
         userService.save(u1);
+
+        // data, user
+        User u2 = new User("cinnamon",
+                "1234567");
+        u2.getRoles()
+                .add(new UserRoles(u2,
+                        r2));
+        u2.getRoles()
+                .add(new UserRoles(u2,
+                        r3));
+        userService.save(u2);
+
+        // user
+        User u3 = new User("barnbarn",
+                "ILuvM4th!");
+        u3.getRoles()
+                .add(new UserRoles(u3,
+                        r2));
+        userService.save(u3);
+
+        User u4 = new User("puttat",
+                "password");
+        u4.getRoles()
+                .add(new UserRoles(u4,
+                        r2));
+        userService.save(u4);
+
+        User u5 = new User("misskitty",
+                "password");
+        u5.getRoles()
+                .add(new UserRoles(u5,
+                        r2));
+        userService.save(u5);
+
 
     }
 
