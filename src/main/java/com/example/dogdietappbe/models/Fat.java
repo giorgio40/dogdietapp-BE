@@ -16,14 +16,18 @@ public class Fat {
 
     public Fat() {
     }
+    private int number;
 
     public Fat(String fat) {
         this.fat = fat;
     }
 
-    @ManyToMany()
-    @JsonIgnoreProperties(value = "fats", allowSetters = true)
-    private Set<Dog> dogs = new HashSet<>();
+    @OneToMany(mappedBy = "fat",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "fat",
+            allowSetters = true)
+    private Set<DogFat> dogs = new HashSet<>();
 
 
 
@@ -43,13 +47,11 @@ public class Fat {
         this.fat = fat;
     }
 
-    public Set<Dog> getDogs() {
+    public Set<DogFat> getDogs() {
         return dogs;
     }
 
-    public void setDogs(Set<Dog> dogs) {
-        this.dogs = dogs;
+    public void setDogs(Set<DogFat> fats) {
+        this.dogs = fats;
     }
-
-
 }

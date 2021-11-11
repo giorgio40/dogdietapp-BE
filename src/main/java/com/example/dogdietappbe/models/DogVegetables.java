@@ -11,21 +11,24 @@ public class DogVegetables implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "vegetableid")
-    @JsonIgnoreProperties(value = "vegetables", allowSetters = true)
+    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
     private Vegetable vegetable;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "dogid")
-    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
+    @JsonIgnoreProperties(value = "vegetables", allowSetters = true)
     private Dog dog;
+
+    private int amount;
 
     public DogVegetables() {
     }
 
-    public DogVegetables(Vegetable vegetable, Dog dog) {
+    public DogVegetables(Vegetable vegetable, Dog dog, int amount) {
         this.vegetable = vegetable;
         this.dog = dog;
+        this.amount = amount;
     }
 
     public Vegetable getVegetable() {
@@ -44,6 +47,13 @@ public class DogVegetables implements Serializable {
         this.dog = dog;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     @Override
     public boolean equals(Object o)

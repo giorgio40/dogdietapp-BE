@@ -11,18 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(name = "/dogs")
+@RequestMapping( "/dogs")
 public class DogController {
 
     @Autowired
     private DogServices dogServices;
 
 
-
-
     @GetMapping(value = "/dog/{dogId}",
             produces = "application/json")
-    public ResponseEntity<?> getRestaurantById(
+    public ResponseEntity<?> getDogById(
             @PathVariable
                     Long dogId) {
         Dog d = dogServices.findDogById(dogId);
@@ -31,12 +29,5 @@ public class DogController {
 
 
     }
-
-        @GetMapping(value = "/dog/{dogname}", produces = "application/json")
-        public ResponseEntity<?> getDogByWeight(@PathVariable String dogname){
-        Dog d = dogServices.findDogByWeight(dogname);
-        return new ResponseEntity<>(d,HttpStatus.OK);
-
-        }
 
 }

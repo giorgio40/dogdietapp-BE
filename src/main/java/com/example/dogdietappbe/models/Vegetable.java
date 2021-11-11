@@ -17,13 +17,16 @@ public class Vegetable {
     public Vegetable() {
     }
 
-    @ManyToMany()
-    @JsonIgnoreProperties(value = "payments", allowSetters = true)
-    private Set<Dog> dogs = new HashSet<>();
-
     public Vegetable(String vegetable) {
         this.vegetable = vegetable;
     }
+
+    @OneToMany(mappedBy = "vegetable",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+   @JsonIgnoreProperties(value = "vegetable",
+           allowSetters = true)
+    private Set<DogVegetables> dogs = new HashSet<>();
 
     public long getVegetableid() {
         return vegetableid;
@@ -41,11 +44,13 @@ public class Vegetable {
         this.vegetable = vegetable;
     }
 
-    public Set<Dog> getDogs() {
+    public Set<DogVegetables> getDogs() {
         return dogs;
     }
 
-    public void setDogs(Set<Dog> dogs) {
-        this.dogs = dogs;
+    public void setDogs(Set<DogVegetables> vegetables) {
+        this.dogs = vegetables;
     }
+
+
 }

@@ -13,15 +13,22 @@ public class Protein {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long proteinid;
 
-
     private String protein;
+
+
+
+
+
+    @OneToMany(mappedBy = "protein",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "protein",
+           allowSetters = true)
+    private Set<DogProteins> dogs = new HashSet<>();
+
 
     public Protein() {
     }
-
-    @ManyToOne()
-    @JsonIgnoreProperties(value = "proteins", allowSetters = true)
-    private Dog dog;
 
     public Protein(String protein) {
         this.protein = protein;
@@ -43,11 +50,13 @@ public class Protein {
         this.protein = protein;
     }
 
-    public Dog getDog() {
-        return dog;
+    public Set<DogProteins> getDogs() {
+        return dogs;
     }
 
-    public void setDog(Dog dog) {
-        this.dog = dog;
+    public void setDogs(Set<DogProteins> proteins) {
+        this.dogs = proteins;
     }
 }
+
+

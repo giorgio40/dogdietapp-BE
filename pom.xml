@@ -14,7 +14,7 @@
     <name>dogdietapp-BE</name>
     <description>dogdietapp-BE</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>14</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -66,6 +66,10 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
     </dependencies>
