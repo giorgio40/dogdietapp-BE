@@ -7,4 +7,6 @@ public interface DogServices {
     Dog findDogById(long id);
 
     Dog findDogByWeight(String weight);
+
+    Dog save(Dog dog);
 }

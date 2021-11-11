@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name ="dogfat")
+@Table(name ="dogfats")
 @IdClass(DogFatId.class)
 public class DogFat implements Serializable {
 
@@ -20,20 +20,22 @@ public class DogFat implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "dogid")
-    @JsonIgnoreProperties(value="dogs",allowSetters = true)
+    @JsonIgnoreProperties(value="fats",allowSetters = true)
     private Dog dog;
+
+    private int amount;
 
     public DogFat() {
     }
 
-    public DogFat(Fat fat, Dog dog) {
+    public DogFat(Fat fat, Dog dog, int amount) {
         this.fat = fat;
         this.dog = dog;
+        this.amount = amount;
     }
 
     public Fat getFat() {
         return fat;
-
     }
 
     public void setFat(Fat fat) {
@@ -46,6 +48,14 @@ public class DogFat implements Serializable {
 
     public void setDog(Dog dog) {
         this.dog = dog;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     @Override

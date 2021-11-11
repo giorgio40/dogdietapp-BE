@@ -12,6 +12,8 @@ public class Dog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long dogid;
 
+    private String name;
+
     private String weight;
 
     private String calories;
@@ -45,14 +47,11 @@ public class Dog {
     private Set<DogProteins> proteins = new HashSet<>();
 
 
-
-
-
-
     public Dog() {
     }
 
-    public Dog(String weight, String calories) {
+    public Dog(String name, String weight, String calories) {
+        this.name = name;
         this.weight = weight;
         this.calories = calories;
     }
@@ -63,6 +62,14 @@ public class Dog {
 
     public void setDogid(long dogid) {
         this.dogid = dogid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getWeight() {
@@ -83,6 +90,10 @@ public class Dog {
 
     public Set<DogSupplements> getSupplements() {
         return supplements;
+    }
+
+    public void setSupplements(Set<DogSupplements> supplements) {
+        this.supplements = supplements;
     }
 
     public Set<DogFat> getFats() {
@@ -108,9 +119,4 @@ public class Dog {
     public void setProteins(Set<DogProteins> proteins) {
         this.proteins = proteins;
     }
-
-    public void setSupplements(Set<DogSupplements> supplements) {
-        this.supplements = supplements;
-    }
 }
-

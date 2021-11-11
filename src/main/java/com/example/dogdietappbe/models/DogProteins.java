@@ -14,21 +14,32 @@ public class DogProteins implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "dogid")
-    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
+    @JsonIgnoreProperties(value = "proteins", allowSetters = true)
     private Dog dog;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "proteinid")
-    @JsonIgnoreProperties(value = "proteins", allowSetters = true)
+    @JsonIgnoreProperties(value = "dogs", allowSetters = true)
     private Protein protein;
+
+    private  int amount;
 
     public DogProteins() {
     }
 
-    public DogProteins(Dog dog, Protein protein) {
+    public DogProteins(Dog dog, Protein protein, int amount) {
         this.dog = dog;
         this.protein = protein;
+        this.amount = amount;
+    }
+
+    public int getAmount(){
+        return amount;
+    }
+
+    public void setAmount(int amount){
+        this.amount = amount;
     }
 
     public Protein getProtein() {

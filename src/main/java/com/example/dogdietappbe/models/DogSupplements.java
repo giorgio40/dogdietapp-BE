@@ -27,12 +27,15 @@ public class DogSupplements implements Serializable {
             allowSetters = true)
     private Dog dog;
 
+    private int amount;
+
     public DogSupplements() {
     }
 
-    public DogSupplements(Supplement supplement, Dog dog) {
+    public DogSupplements(Supplement supplement, Dog dog, int amount) {
         this.supplement = supplement;
         this.dog = dog;
+        this.amount = amount;
     }
 
     public Supplement getSupplement() {
@@ -51,6 +54,14 @@ public class DogSupplements implements Serializable {
         this.dog = dog;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -65,7 +76,7 @@ public class DogSupplements implements Serializable {
           DogSupplements that = (DogSupplements) o;
 
         return ((dog == null) ? 0 : dog.getDogid()) == ((that.dog == null) ? 0 : that.dog.getDogid()) &&
-                ((supplement == null) ? 0 : supplement.getSupplementid()) == ((that.supplement == null) ? 0 : that.supplement.getSupplementid());
+                ((supplement == null) ? 0 : supplement.getSupplementId()) == ((that.supplement == null) ? 0 : that.supplement.getSupplementId());
     }
 
     @Override

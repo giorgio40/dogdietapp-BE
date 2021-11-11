@@ -59,16 +59,7 @@ public class ResourceServerConfig
                         "/webjars/**",
                         "/createnewuser")
                 .permitAll()
-                .antMatchers(HttpMethod.POST,
-                        "/menus/**", "/payments/**", "/restaurants/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE,
-                        "/menus/**", "/payments/**", "/restaurants/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT,
-                        "/menus/**", "/payments/**", "/restaurants/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers("/users/**", "/restaurants/**", "/payments/**", "/menus/**",
+                .antMatchers("/users/**", "/dogs/**",
                         "/oauth/revoke-token",
                         "/logout")
                 .authenticated()
