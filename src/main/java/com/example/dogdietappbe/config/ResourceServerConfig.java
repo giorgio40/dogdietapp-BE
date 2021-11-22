@@ -57,15 +57,35 @@ public class ResourceServerConfig
                         "/swagger-ui.html",
                         "/v2/api-docs",
                         "/webjars/**",
-                        "/createnewuser")
+                        "/createnewuser"
+                                ,"/dogs/**")
                 .permitAll()
-                .antMatchers("/users/**", "/dogs/**",
+                .antMatchers(HttpMethod.POST,
+                        "/menus/**",
+                        "/payments/**",
+                        "/restaurants/**")
+                .hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,
+                        "/menus/**",
+                        "/payments/**",
+                        "/restaurants/**")
+                .hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,
+                        "/menus/**",
+                        "/payments/**",
+                        "/restaurants/**")
+                .hasAnyRole("ADMIN")
+                .antMatchers("/users/**",
+                        "/restaurants/**",
+                        "/payments/**",
+                        "/menus/**",
                         "/oauth/revoke-token",
                         "/logout")
                 .authenticated()
                 .antMatchers("/roles/**")
                 .hasAnyRole("ADMIN")
-                .anyRequest().denyAll() // deny any endpoint that is not explicitly given access rights
+                .anyRequest()
+                .denyAll() // deny any endpoint that is not explicitly given access rights
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());
@@ -95,4 +115,3 @@ public class ResourceServerConfig
                 .disable();
     }
 }
-
