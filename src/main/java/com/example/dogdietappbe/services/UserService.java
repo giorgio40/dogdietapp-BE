@@ -41,7 +41,7 @@ public interface UserService
      *
      * @param id id The primary key (long) of the user you seek.
      */
-    void delete(long id);
+    void deleteAllUsers();
 
     /**
      * Given a complete user object, saves that user object in the database.
@@ -51,7 +51,7 @@ public interface UserService
      * @param user the user object to be saved
      * @return the saved user object including any automatically generated fields
      */
-    User save(User user);
+    User save(User user) throws Exception;
 
     /**
      * Updates the provided fields in the user record referenced by the primary key.
@@ -67,8 +67,10 @@ public interface UserService
             User user,
             long id);
 
+    User findUserByUsername(String username);
+
     /**
      * Deletes all record and their associated records from the database
      */
-    public void deleteAll();
+
 }

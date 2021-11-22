@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,12 +29,17 @@ public class User {
     @Column(unique = true)
     private String username;
 
+    @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
+    @Email
+    private String email;
+
     /**
      * The password (String) for this user. Cannot be null. Never get displayed
      */
-    @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
+
 
     /**
      * Part of the join relationship between user and role
@@ -61,13 +67,13 @@ public class User {
      * @param username The username (String) of the user
      * @param password The password (String) of the user
      */
-    public User(
-            String username,
-            String password)
-    {
-        setUsername(username);
-        setPassword(password);
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
+
+
 
     /**
      * Getter for userid
@@ -156,6 +162,14 @@ public class User {
     public void setRoles(Set<UserRoles> roles)
     {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 @Transactional
@@ -61,13 +62,7 @@ public class UserServiceImpl
         return list;
     }
 
-    @Transactional
-    @Override
-    public void delete(long id) {
-        userrepos.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
-        userrepos.deleteById(id);
-    }
+
 
     @Override
     public User findByName(String name) {
@@ -91,6 +86,7 @@ public class UserServiceImpl
 
         newUser.setUsername(user.getUsername()
                 .toLowerCase());
+        newUser.setPasswordNoEncrypt(user.getPassword());
         newUser.setPasswordNoEncrypt(user.getPassword());
 
         newUser.getRoles()
@@ -145,11 +141,22 @@ public class UserServiceImpl
         }
     }
 
+    @Override
+    public User findUserByUsername(String username) {
+        User user = userrepos.findByUsername(username.toLowerCase());
+        if (user == null)
+        {
+            throw new EntityNotFoundException("Username " + username + " not found");
+        }
+
+        return user;
+    }
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void deleteAll()
+    public void deleteAllUsers()
     {
-        rolerepos.deleteAll();
+        userrepos.deleteAll();
     }
 }
 

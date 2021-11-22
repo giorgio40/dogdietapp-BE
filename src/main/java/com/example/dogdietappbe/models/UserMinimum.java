@@ -1,12 +1,19 @@
 package com.example.dogdietappbe.models;
 
-public class userMinimum {
+public class UserMinimum {
     private String username;
+
+    private String email;
 
     /**
      * The user's password (String)
      */
     private String password;
+
+    public UserMinimum() {
+    }
+
+
 
     /**
      * Getter for the username
@@ -47,6 +54,14 @@ public class userMinimum {
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

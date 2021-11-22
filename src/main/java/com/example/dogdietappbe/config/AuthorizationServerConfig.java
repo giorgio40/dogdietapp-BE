@@ -1,6 +1,7 @@
 package com.example.dogdietappbe.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,18 +14,20 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig
-        extends AuthorizationServerConfigurerAdapter
-{
+        extends AuthorizationServerConfigurerAdapter {
     /**
      * Client Id is the user name for the client application. It is read from the environment variable OAUTHCLIENTID
      */
-//    static final String CLIENT_ID = System.getenv("OAUTHCLIENTID");
-    static final String CLIENT_ID = "lambdaclient";
+
+   private static final String CLIENT_ID = System.getenv("OAUTHCLIENTID");
+//    @Value("${OAUTHCLIENTID:}")
+//    private static String CLIENT_ID;
     /**
      * Client secret is the password for the client application. It is read from the environment variable OAUTHCLIENTSECRET
      */
 //        static final String CLIENT_SECRET = System.getenv("OAUTHCLIENTSECRET"); // read from environment variable
-        static final String CLIENT_SECRET = "lambdasecret";
+//    @Value("${OAUTHCLIENTSECRET}")
+    private static final String CLIENT_SECRET = System.getenv("OAUTHCLIENTSECRET");
 //        ; read from environment variable
 
     /**
@@ -94,8 +97,7 @@ public class AuthorizationServerConfig
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer)
             throws
-            Exception
-    {
+            Exception {
         configurer.inMemory()
                 .withClient(CLIENT_ID)
                 .secret(encoder.encode(CLIENT_SECRET))
@@ -118,8 +120,7 @@ public class AuthorizationServerConfig
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints)
             throws
-            Exception
-    {
+            Exception {
         endpoints.tokenStore(tokenStore)
                 .authenticationManager(authenticationManager);
         // here instead of our clients requesting authentication at the endpoint /oauth/token, they request it at the endpoint /login

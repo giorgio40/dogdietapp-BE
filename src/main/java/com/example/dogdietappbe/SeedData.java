@@ -53,15 +53,15 @@ public class SeedData implements CommandLineRunner {
             Exception {
 
         Dog d1 = new Dog("Dog1", "10lbs", "410");
-        Dog d2 = new Dog("Dog2", "20 lbs", "550");
+        Dog d2 = new Dog("Dog2", "20lbs", "550");
         Dog d3 = new Dog("Dog3", "30lbs", "722");
-        Dog d4 = new Dog("Dog4", "40 lbs", "858");
+        Dog d4 = new Dog("Dog4", "40lbs", "858");
         Dog d5 = new Dog("Dog5", "50lbs", "950");
-        Dog d6 = new Dog("Dog6", "60 lbs", "1100");
+        Dog d6 = new Dog("Dog6", "60lbs", "1100");
         Dog d7 = new Dog("Dog7", "70lbs", "1295");
-        Dog d8 = new Dog("Dog8", "80 lbs", "1405");
-        Dog d9 = new Dog("Dog9", "90bs", "1550");
-        Dog d10 = new Dog("Dog10", "100 lbs", "1685");
+        Dog d8 = new Dog("Dog8", "80lbs", "1405");
+        Dog d9 = new Dog("Dog9", "90lbs", "1550");
+        Dog d10 = new Dog("Dog10", "100lbs", "1685");
 
 
         Supplement wholefoodszinc = new Supplement("wholefoods zinc");
@@ -127,7 +127,7 @@ public class SeedData implements CommandLineRunner {
         d1.getVegetables().add(new DogVegetables(broccoli, d1, 12));
         d1.getVegetables().add(new DogVegetables(spinach, d1, 44));
         d1.getFats().add(new DogFat(coconutoil, d1, 25));
-        d1.getSupplements().add(new DogSupplements(wholefoodszinc,d1, 1));
+        d1.getSupplements().add(new DogSupplements(wholefoodszinc, d1, 1));
         d1.getSupplements().add(new DogSupplements(seasalt, d1, 2));
         d1.getSupplements().add(new DogSupplements(Naturemadethiamine, d1, 1));
         d1.getSupplements().add(new DogSupplements(NutivaHempSeed, d1, 15));
@@ -144,7 +144,7 @@ public class SeedData implements CommandLineRunner {
         d2.getVegetables().add(new DogVegetables(broccoli, d2, 30));
         d2.getVegetables().add(new DogVegetables(spinach, d2, 90));
         d2.getFats().add(new DogFat(coconutoil, d2, 44));
-        d2.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate,d2,  2));
+        d2.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate, d2, 2));
         d2.getSupplements().add(new DogSupplements(seasalt, d2, 2));
         d2.getSupplements().add(new DogSupplements(Naturemadethiamine, d2, 1));
         d2.getSupplements().add(new DogSupplements(kalBonemeal, d2, 14));
@@ -162,7 +162,7 @@ public class SeedData implements CommandLineRunner {
         d3.getVegetables().add(new DogVegetables(broccoli, d3, 35));
         d3.getVegetables().add(new DogVegetables(spinach, d3, 98));
         d3.getFats().add(new DogFat(coconutoil, d3, 45));
-        d3.getSupplements().add(new DogSupplements(NutivaHempSeed,d3, 7));
+        d3.getSupplements().add(new DogSupplements(NutivaHempSeed, d3, 7));
         d3.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate, d3, 1));
         d3.getSupplements().add(new DogSupplements(NowKPotassiumChloride, d3, 1));
         d3.getSupplements().add(new DogSupplements(kalBonemeal, d3, 8));
@@ -199,7 +199,7 @@ public class SeedData implements CommandLineRunner {
         d5.getVegetables().add(new DogVegetables(broccoli, d5, 70));
         d5.getVegetables().add(new DogVegetables(spinach, d5, 85));
         d5.getFats().add(new DogFat(coconutoil, d5, 75));
-        d5.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate,d5, 2));
+        d5.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate, d5, 2));
         d5.getSupplements().add(new DogSupplements(NutivaHempSeed, d5, 14));
         d5.getSupplements().add(new DogSupplements(Naturemadethiamine, d5, 1));
         d5.getSupplements().add(new DogSupplements(kalBonemeal, d5, 6));
@@ -302,15 +302,15 @@ public class SeedData implements CommandLineRunner {
 
         Role r1 = new Role("admin");
         Role r2 = new Role("user");
-        Role r3 = new Role("data");
+        Role r3 = new Role("DATA");
+
 
         r1 = roleService.save(r1);
         r2 = roleService.save(r2);
         r3 = roleService.save(r3);
 
-        // admin, data, user
         User u1 = new User("admin",
-                "password");
+                "password","admin@admin.com");
         u1.getRoles()
                 .add(new UserRoles(u1,
                         r1));
@@ -325,7 +325,7 @@ public class SeedData implements CommandLineRunner {
 
         // data, user
         User u2 = new User("cinnamon",
-                "1234567");
+                "1234567","cinnamon@cinnamon.com");
         u2.getRoles()
                 .add(new UserRoles(u2,
                         r2));
@@ -336,21 +336,21 @@ public class SeedData implements CommandLineRunner {
 
         // user
         User u3 = new User("barnbarn",
-                "ILuvM4th!");
+                "ILuvM4th!","barnbarn@gmail.com");
         u3.getRoles()
                 .add(new UserRoles(u3,
                         r2));
         userService.save(u3);
 
         User u4 = new User("puttat",
-                "password");
+                "password","puttat@aol.com");
         u4.getRoles()
                 .add(new UserRoles(u4,
                         r2));
         userService.save(u4);
 
         User u5 = new User("misskitty",
-                "password");
+                "password","misskitty@yahoo.com");
         u5.getRoles()
                 .add(new UserRoles(u5,
                         r2));
@@ -358,6 +358,4 @@ public class SeedData implements CommandLineRunner {
 
 
     }
-
-
 }
