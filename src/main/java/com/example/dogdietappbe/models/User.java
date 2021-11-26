@@ -34,6 +34,7 @@ public class User {
     private String password;
 
     @Email
+    @Column(nullable = false,unique = true)
     private String email;
 
     /**
@@ -48,6 +49,7 @@ public class User {
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIgnoreProperties(value = "user",
             allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();

@@ -43,8 +43,7 @@ public class SeedData implements CommandLineRunner {
 
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private DogServices dogServices;
+
 
 
     @Transactional

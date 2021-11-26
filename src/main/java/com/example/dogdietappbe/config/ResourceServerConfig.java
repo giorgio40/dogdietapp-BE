@@ -11,107 +11,54 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig
-        extends ResourceServerConfigurerAdapter
-{
+        extends ResourceServerConfigurerAdapter {
     /**
      * We can have multiple resource servers in place. This ties this resource server to this application
      */
-    private static final String RESOURCE_ID = "resource_id";
+        private static final String RESOURCE_ID = "resource_id";
 
-    /**
-     * Tries this application to the resource server
-     *
-     * @param resources the resource server
-     */
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources)
-    {
-        // stateless refers to only working with access tokens. Testing using a different schema
-        // so stateless must be false.
-        resources.resourceId(RESOURCE_ID)
-                .stateless(false);
+        @Override
+        public void configure(ResourceServerSecurityConfigurer resources) {
+            resources.resourceId(RESOURCE_ID)
+                    .stateless(false);
+        }
+
+        @Override
+        public void configure(HttpSecurity http)
+                throws
+                Exception {
+            http.authorizeRequests()
+                    .antMatchers("/",
+                            "/h2-console/**",
+                            "/swagger-resources/**",
+                            "/swagger-resource/**",
+                            "/swagger-ui.html",
+                            "/v2/api-docs",
+                            "/webjars/**",
+                            "/register",
+                            "/login")
+                    .permitAll()
+                    .antMatchers("/users/**",
+                            "/dogs/**",
+                            "/oauth/revoke-token",
+                            "/logout")
+                    .authenticated()
+                    .antMatchers("/roles/**")
+                    .hasAnyRole("ADMIN", "DATA")
+                    .and()
+                    .exceptionHandling()
+                    .accessDeniedHandler(new OAuth2AccessDeniedHandler());
+
+//		http.requiresChannel().anyRequest().requiresSecure(); //required for https
+
+            http.csrf()
+                    .disable();
+
+            http.headers()
+                    .frameOptions()
+                    .disable();
+
+            http.logout()
+                    .disable();
+        }
     }
-
-    /**
-     * This method configures which roles can access which endpoints
-     *
-     * @param http Our HttpSecurity object that is maintains by Spring
-     * @throws Exception in case the configurations fails
-     */
-    @Override
-    public void configure(HttpSecurity http)
-            throws
-            Exception
-    {
-        // our antMatchers control which roles of users have access to which endpoints
-        // we must order our antmatchers from most restrictive to least restrictive.
-        // So restrict at method level before restricting at endpoint level.
-        // permitAll = everyone and their brother
-        // authenticated = any authenticated, signed in, user
-        // hasAnyRole = must be authenticated and be assigned this role!
-        http.authorizeRequests()
-                .antMatchers("/",
-                        "/h2-console/**",
-                        "/swagger-resources/**",
-                        "/swagger-resource/**",
-                        "/swagger-ui.html",
-                        "/v2/api-docs",
-                        "/webjars/**",
-                        "/createnewuser"
-                                ,"/dogs/**")
-                .permitAll()
-                .antMatchers(HttpMethod.POST,
-                        "/menus/**",
-                        "/payments/**",
-                        "/restaurants/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE,
-                        "/menus/**",
-                        "/payments/**",
-                        "/restaurants/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT,
-                        "/menus/**",
-                        "/payments/**",
-                        "/restaurants/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers("/users/**",
-                        "/restaurants/**",
-                        "/payments/**",
-                        "/menus/**",
-                        "/oauth/revoke-token",
-                        "/logout")
-                .authenticated()
-                .antMatchers("/roles/**")
-                .hasAnyRole("ADMIN")
-                .anyRequest()
-                .denyAll() // deny any endpoint that is not explicitly given access rights
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(new OAuth2AccessDeniedHandler());
-
-        // http.requiresChannel().anyRequest().requiresSecure(); required for https
-
-        // disable the creation and use of Cross Site Request Forgery Tokens.
-        // These tokens require coordination with the front end client that is beyond the scope of this class.
-        // See https://www.yawintutor.com/how-to-enable-and-disable-csrf/ for more information
-        http.csrf()
-                .disable();
-
-        // this disables all of the security response headers. This is necessary for access to the H2 Console.
-        // Normally, Spring Security would include headers such as
-        //     Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-        //     Pragma: no-cache
-        //     Expires: 0
-        //     X-Content-Type-Options: nosniff
-        //     X-Frame-Options: DENY
-        //     X-XSS-Protection: 1; mode=block
-        http.headers()
-                .frameOptions()
-                .disable();
-
-        // This application implements its own logout procedure so disable the one built into Spring Security
-        http.logout()
-                .disable();
-    }
-}

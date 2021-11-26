@@ -10,25 +10,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
 @Service(value = "roleService")
 public class RoleServiceImpl
-        implements RoleService
-{
+        implements RoleService {
     /**
-     * Connects this service to the Role Model
+     *
      */
-    @Autowired
-    RoleRepository rolerepos;
+     @Autowired
+     RoleRepository rolerepos;
 
-
-
-
-    /**
-     * Connect this service to the User Model
+     /**
+      * Connect this service to the User Model
      */
     @Autowired
     UserRepository userrepos;
@@ -39,20 +36,6 @@ public class RoleServiceImpl
     @Autowired
     private UserAuditing userAuditing;
 
-    @Override
-    public List<Role> findAll()
-    {
-        List<Role> list = new ArrayList<>();
-        /*
-         * findAll returns an iterator set.
-         * iterate over the iterator set and add each element to an array list.
-         */
-        rolerepos.findAll()
-                .iterator()
-                .forEachRemaining(list::add);
-        return list;
-    }
-
 
     @Override
     public Role findRoleById(long id)
@@ -61,23 +44,11 @@ public class RoleServiceImpl
                 .orElseThrow(() -> new ResourceNotFoundException("Role id " + id + " not found!"));
     }
 
-    @Override
-    public Role findByName(String name)
-    {
-        Role rr = rolerepos.findByNameIgnoreCase(name);
-
-        if (rr != null)
-        {
-            return rr;
-        } else
-        {
-            throw new ResourceNotFoundException(name);
-        }
-    }
 
     @Transactional
     @Override
-    public Role save(Role role) throws ResourceFoundException {
+    public Role save(Role role)
+    {
         if (role.getUsers()
                 .size() > 0)
         {
@@ -87,35 +58,10 @@ public class RoleServiceImpl
         return rolerepos.save(role);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void deleteAll()
-    {
-        rolerepos.deleteAll();
+    public Role findByName(String user) {
+        return null;
     }
 
-    @Transactional
-    @Override
-    public Role update(
-            long id,
-            Role role) throws ResourceFoundException {
-        if (role.getName() == null)
-        {
-            throw new ResourceNotFoundException("No role name found to update!");
-        }
 
-        if (role.getUsers()
-                .size() > 0)
-        {
-            throw new ResourceFoundException("User Roles are not updated through Role. See endpoint POST: users/user/{userid}/role/{roleid}");
-        }
-
-        Role newRole = findRoleById(id); // see if id exists
-
-        rolerepos.updateRoleName(userAuditing.getCurrentAuditor()
-                        .get(),
-                id,
-                role.getName());
-        return findRoleById(id);
-    }
 }

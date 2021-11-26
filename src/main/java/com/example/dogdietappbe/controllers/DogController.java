@@ -27,7 +27,7 @@ public class DogController {
         return new ResponseEntity<>(d,
                 HttpStatus.OK);
     }
-    @GetMapping(value = "/dogs/dog/{dogweight}",
+    @GetMapping(value = "/dogs/dogs/{dogweight}",
             produces = "application/json")
     public ResponseEntity<?> getDogByWeight(
             @PathVariable

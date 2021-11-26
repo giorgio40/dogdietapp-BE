@@ -10,48 +10,42 @@ public interface UserService
      *
      * @return List of Users. If no users, empty list.
      */
-    List<User> findAll();
+    User save(User user) throws Exception;
 
     /**
-     * A list of all users whose username contains the given substring
+     * Update user.
      *
-     * @param username The substring (String) of the username of the Users you seek
-     * @return List of users whose username contains the given substring
+     * @param user the user
+     * @return the user
      */
-    List<User> findByNameContaining(String username);
-
     /**
-     * Returns the user with the given primary key.
-     *
-     * @param id The primary key (long) of the user you seek.
-     * @return The given User or throws an exception if not found.
-     */
-    User findUserById(long id);
-
-    /**
-     * Returns the user with the given name
-     *
-     * @param name The full name (String) of the User you seek.
-     * @return The User with the given name or throws an exception if not found.
-     */
-    User findByName(String name);
-
-    /**
-     * Deletes the user record and its useremail items from the database based off of the provided primary key
-     *
-     * @param id id The primary key (long) of the user you seek.
+     * Delete all users.
      */
     void deleteAllUsers();
 
     /**
-     * Given a complete user object, saves that user object in the database.
-     * If a primary key is provided, the record is completely replaced
-     * If no primary key is provided, one is automatically generated and the record is added to the database.
+     * Find user by id user.
      *
-     * @param user the user object to be saved
-     * @return the saved user object including any automatically generated fields
+     * @param userid the userid
+     * @return the user
      */
-    User save(User user) throws Exception;
+    User findUserById(long userid);
+
+    /**
+     * Find all users list.
+     *
+     * @return the list
+     */
+    List<User> findAllUsers();
+
+    /**
+     * Find users by username like list.
+     *
+     * @param username the username
+     * @return the list
+     */
+    List<User> findUsersByUsernameLike(String username);
+
 
     /**
      * Updates the provided fields in the user record referenced by the primary key.
@@ -63,12 +57,8 @@ public interface UserService
      * @param id   The primary key (long) of the user to update
      * @return the complete user object that got updated
      */
-    User update(
-            User user,
-            long id);
 
     User findUserByUsername(String username);
-
     /**
      * Deletes all record and their associated records from the database
      */
