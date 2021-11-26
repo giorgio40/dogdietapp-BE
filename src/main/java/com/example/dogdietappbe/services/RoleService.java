@@ -8,7 +8,7 @@ import java.util.List;
 public interface RoleService {
 
 
-    List<Role> findAll();
+
 
     /**
      * Return the first Role matching the given primary key
@@ -28,7 +28,9 @@ public interface RoleService {
      * @param role the role object to be saved
      * @return the saved role object including any automatically generated fields
      */
-    Role save(Role role) throws ResourceFoundException;
+    Role save(Role role) throws Exception;
+
+    Role findByName(String user);
 
     /**
      * Find the first Role object matching the given name
@@ -36,12 +38,11 @@ public interface RoleService {
      * @param name The name (String) of the role you seek
      * @return The Role object matching the given name
      */
-    Role findByName(String name);
 
     /**
      * Deletes all record and their associated records from the database
      */
-    public void deleteAll();
+
 
     /**
      * Updates the name of the given role
@@ -50,9 +51,11 @@ public interface RoleService {
      * @param role The role object containing the new name - only roles name can be updated through this process
      * @return The complete role with the new name
      */
-    Role update(
-            long id,
-            Role role) throws ResourceFoundException;
+
+
+
+
+
 }
 
 

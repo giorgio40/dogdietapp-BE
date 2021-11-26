@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
-
+@PropertySource(value = "file:/Users/georg/georgeketodiet.properties",ignoreResourceNotFound = true)
 public class DogdietappBeApplication {
 
     public static void main(String[] args) {
