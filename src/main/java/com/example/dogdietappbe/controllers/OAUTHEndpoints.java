@@ -34,156 +34,55 @@ public class OAUTHEndpoints {
     @Autowired
     private UserService userService;
 
+    /**
+     * A method in this controller adds a new user to the application with the role User so needs access to Role Services to do this.
+     */
     @Autowired
     private RoleService roleService;
 
+    /**
+     * Connect to the Token store so the application can remove the token
+     */
     @Autowired
     private TokenStore tokenStore;
 
     /**
-     * Register self response entity.
+     * This endpoint always anyone to create an account with the default role of USER. That role is hardcoded in this method.
      *
-     * @param req  the req
-     * @param user the user
-     * @return the response entity
-     * @throws Exception the exception
+     * @param httpServletRequest the request that comes in for creating the new user
+     * @param newminuser         A special minimum set of data that is needed to create a new user
+     * @return The token access and other relevent data to token access. Status of CREATED. The location header to look up the new user.
+     * @throws URISyntaxException we create some URIs during this method. If anything goes wrong with that creation, an exception is thrown.
      */
-    @PostMapping(value = "/createnewuser",
-            consumes = {"application/json"},
-            produces = {"application/json"})
-    public ResponseEntity<?> addSelf(
-            HttpServletRequest httpServletRequest,
-            @Valid
-            @RequestBody
-                    UserMinimum newminuser)
-            throws
-            Exception
-    {
-        // Create the user
-        User newuser = new User();
-
-        newuser.setUsername(newminuser.getUsername());
-        newuser.setPassword(newminuser.getPassword());
-
-        // add the default role of user
-        Set<UserRoles> newRoles = new HashSet<>();
-        newRoles.add(new UserRoles(newuser,
-                roleService.findByName("USER")));
-        newuser.setRoles(newRoles);
-
-        newuser = userService.save(newuser);
-
-        // set the location header for the newly created resource
-        // The location comes from a different controller!
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromUriString(httpServletRequest.getServerName() + ":" + httpServletRequest.getLocalPort() + "/users/user/{userId}")
-                .buildAndExpand(newuser.getUserid())
-                .toUri();
-        responseHeaders.setLocation(newUserURI);
-
-        // return the access token
-        // To get the access token, surf to the endpoint /login (which is always on the server where this is running)
-        // just as if a client had done this.
-        RestTemplate restTemplate = new RestTemplate();
-        String requestURI = "http://localhost" + ":" + httpServletRequest.getLocalPort() + "/login";
-
-        List<MediaType> acceptableMediaTypes = new ArrayList<>();
-        acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setAccept(acceptableMediaTypes);
-        headers.setBasicAuth(System.getenv("OAUTHCLIENTID"),
-                System.getenv("OAUTHCLIENTSECRET"));
-
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("grant_type",
-                "password");
-        map.add("scope",
-                "read write trust");
-        map.add("username",
-                newminuser.getUsername());
-        map.add("password",
-                newminuser.getPassword());
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map,
-                headers);
-
-        String theToken = restTemplate.postForObject(requestURI,
-                request,
-                String.class);
-
-        return new ResponseEntity<>(theToken,
-                responseHeaders,
-                HttpStatus.CREATED);
-    }
 
     /**
-     * Login self response entity.
+     * Removes the token for the signed on user. The signed user will lose access to the application. They would have to sign on again.
      *
-     * @param req   the req
-     * @param creds the creds
-     * @return the response entity
-     */
-    @PostMapping(value = "/login", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<?> loginSelf(HttpServletRequest req, @Valid @RequestBody LoginCreds creds)
-    {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI userUri = ServletUriComponentsBuilder.fromUriString(req.getServerName() + ":" + req.getLocalPort() +
-                "/users/user/{userid}").buildAndExpand(userService.findUserByUsername(creds.getUsername()).getUserid()).toUri();
-        responseHeaders.setLocation(userUri);
-
-        RestTemplate restTemplate = new RestTemplate();
-        String requestURI = "http://localhost" + ":" + req.getLocalPort() + "/oauth/token";
-
-        List<MediaType> acceptableMediaTypes = new ArrayList<>();
-        acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setAccept(acceptableMediaTypes);
-        headers.setBasicAuth(System.getenv("PINTEREACHID"),
-                System.getenv("PINTEREACHSECRET"));
-
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("grant_type",
-                "password");
-        map.add("scope",
-                "read write trust");
-        map.add("username",
-                creds.getUsername());
-        map.add("password",
-                creds.getPassword());
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map,
-                headers);
-
-        String theToken = restTemplate.postForObject(requestURI,
-                request,
-                String.class);
-
-        return new ResponseEntity<>(theToken, responseHeaders, HttpStatus.OK);
-    }
-
-    /**
-     * Logout self response entity.
+     * <br>Example: <a href="http://localhost:2019/logout">http://localhost:2019/logout</a>
      *
-     * @param req the req
-     * @return the response entity
+     * @param request the Http request from which we find the authorization header which includes the token to be removed
      */
-    @GetMapping(value = {"/oauth/revoke-token", "/logout"})
-    public ResponseEntity<?> logoutSelf(HttpServletRequest req)
+    // yes, both endpoints are mapped to the same Java method! So, either one will work.
+    @GetMapping(value = {"/oauth/revoke-token", "/logout"},
+            produces = "application/json")
+    public ResponseEntity<?> logoutSelf(HttpServletRequest request)
     {
-        String authHeader = req.getHeader("Authorization");
-        if( authHeader != null)
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null)
         {
-            String tokenVal = authHeader.replace("Bearer", "").trim();
-            OAuth2AccessToken token = tokenStore.readAccessToken(tokenVal);
-            tokenStore.removeAccessToken(token);
+            // find the token
+            String tokenValue = authHeader.replace("Bearer",
+                            "")
+                    .trim();
+            // and remove it!
+            OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
+            tokenStore.removeAccessToken(accessToken);
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
+
+
 
 

@@ -30,24 +30,14 @@ public class ResourceServerConfig
             http.authorizeRequests()
                     .antMatchers("/",
                             "/h2-console/**",
-                            "/swagger-resources/**",
-                            "/swagger-resource/**",
-                            "/swagger-ui.html",
-                            "/v2/api-docs",
-                            "/webjars/**",
-                            "/register",
-                            "/login")
+                            "/register")
                     .permitAll()
                     .antMatchers("/users/**",
                             "/dogs/**",
                             "/oauth/revoke-token",
                             "/logout")
-                    .authenticated()
-                    .antMatchers("/roles/**")
-                    .hasAnyRole("ADMIN", "DATA")
-                    .and()
-                    .exceptionHandling()
-                    .accessDeniedHandler(new OAuth2AccessDeniedHandler());
+                    .authenticated();
+
 
 //		http.requiresChannel().anyRequest().requiresSecure(); //required for https
 
