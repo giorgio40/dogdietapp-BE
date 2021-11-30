@@ -15,40 +15,40 @@ public class ResourceServerConfig
     /**
      * We can have multiple resource servers in place. This ties this resource server to this application
      */
-        private static final String RESOURCE_ID = "resource_id";
+    private static final String RESOURCE_ID = "resource_id";
 
-        @Override
-        public void configure(ResourceServerSecurityConfigurer resources) {
-            resources.resourceId(RESOURCE_ID)
-                    .stateless(false);
-        }
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.resourceId(RESOURCE_ID)
+                .stateless(false);
+    }
 
-        @Override
-        public void configure(HttpSecurity http)
-                throws
-                Exception {
-            http.authorizeRequests()
-                    .antMatchers("/",
-                            "/h2-console/**",
-                            "/register")
-                    .permitAll()
-                    .antMatchers("/users/**",
-                            "/dogs/**",
-                            "/oauth/revoke-token",
-                            "/logout")
-                    .authenticated();
+    @Override
+    public void configure(HttpSecurity http)
+            throws
+            Exception {
+        http.authorizeRequests()
+                .antMatchers("/",
+                        "/h2-console/**",
+                        "/register")
+                .permitAll()
+                .antMatchers("/users/**",
+                        "/dogs/**",
+                        "/oauth/revoke-token",
+                        "/logout")
+                .authenticated();
 
 
 //		http.requiresChannel().anyRequest().requiresSecure(); //required for https
 
-            http.csrf()
-                    .disable();
+        http.csrf()
+                .disable();
 
-            http.headers()
-                    .frameOptions()
-                    .disable();
+        http.headers()
+                .frameOptions()
+                .disable();
 
-            http.logout()
-                    .disable();
-        }
+        http.logout()
+                .disable();
     }
+}

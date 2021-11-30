@@ -20,7 +20,10 @@ public class UserMinimum {
         @Email
         private String email;
 
-        /**
+    public UserMinimum() {
+    }
+
+    /**
          * Getter for the username
          *
          * @return the username (String) associated with this user
