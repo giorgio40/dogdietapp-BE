@@ -54,6 +54,12 @@ public class User {
             allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user",
+            allowSetters = true)
+    private List<Useremail> useremails = new ArrayList<>();
     /**
      * Default constructor used primarily by the JPA.
      */
@@ -172,6 +178,15 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public List<Useremail> getUseremails() {
+        return useremails;
+    }
+
+    public void setUseremails(List<Useremail> useremails) {
+        this.useremails = useremails;
     }
 
     /**

@@ -64,6 +64,7 @@ public class OAUTHEndpoints {
 
         newuser.setUsername(newminuser.getUsername());
         newuser.setPassword(newminuser.getPassword());
+        newuser.setEmail(newminuser.getEmail());
 
         // add the default role of user
         Set<UserRoles> newRoles = new HashSet<>();
@@ -142,8 +143,8 @@ public class OAUTHEndpoints {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.setAccept(acceptableMediaTypes);
-        headers.setBasicAuth(System.getenv("PINTEREACHID"),
-                System.getenv("PINTEREACHSECRET"));
+        headers.setBasicAuth(System.getenv("OAUTHCLIENTID"),
+                System.getenv("OAUTHSECRET"));
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("grant_type",

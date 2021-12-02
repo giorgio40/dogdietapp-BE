@@ -1,7 +1,9 @@
 package com.example.dogdietappbe.services;
 
+import com.example.dogdietappbe.exceptions.ResourceNotFoundException;
 import com.example.dogdietappbe.models.Role;
 import com.example.dogdietappbe.models.User;
+import com.example.dogdietappbe.models.Useremail;
 import com.example.dogdietappbe.models.UserRoles;
 import com.example.dogdietappbe.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +26,43 @@ public class UserServiceImpl
     @Transactional
     @Override public User save(User user) throws Exception
     {
-
-
         User newUser = new User();
 
         if (user.getUserid() != 0)
         {
-            newUser = findUserById(user.getUserid());
+            userrepos.findById(user.getUserid())
+                    .orElseThrow(() -> new ResourceNotFoundException("User id " + user.getUserid() + " not found!"));
+            newUser.setUserid(user.getUserid());
         }
 
-        newUser.setUsername(user.getUsername().toLowerCase());
+        newUser.setUsername(user.getUsername()
+                .toLowerCase());
         newUser.setPasswordNoEncrypt(user.getPassword());
-        newUser.setEmail(user.getEmail().toLowerCase());
+        newUser.setEmail(user.getEmail()
+                .toLowerCase());
 
-        newUser.getRoles().clear();
-        for (UserRoles r : user.getRoles())
+        newUser.getRoles()
+                .clear();
+        for (UserRoles ur : user.getRoles())
         {
-            Role role = roleService.findRoleById(r.getRole().getRoleid());
-            newUser.getRoles().add(new UserRoles(newUser, role));
+            Role addRole = roleService.findRoleById(ur.getRole()
+                    .getRoleid());
+            newUser.getRoles()
+                    .add(new UserRoles(newUser,
+                            addRole));
+        }
+        newUser.getUseremails()
+                .clear();
+        for (Useremail ue : user.getUseremails())
+        {
+            newUser.getUseremails()
+                    .add(new Useremail(ue.getUseremail(),
+                            newUser));
+
         }
 
         return userrepos.save(newUser);
     }
-
     @Transactional
     @Override public void deleteAllUsers()
     {
