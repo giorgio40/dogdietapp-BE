@@ -8,6 +8,7 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<User,Long> {
     User findByUsername(String toLowerCase);
 
+    User save(User user);
 
 
     List<User> findByUsernameContainingIgnoringCase(String username);

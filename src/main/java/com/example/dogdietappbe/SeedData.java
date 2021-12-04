@@ -2,11 +2,8 @@ package com.example.dogdietappbe;
 
 import com.example.dogdietappbe.models.*;
 import com.example.dogdietappbe.repositories.*;
-import com.example.dogdietappbe.services.DogServices;
 import com.example.dogdietappbe.services.RoleService;
 import com.example.dogdietappbe.services.UserService;
-import org.aspectj.weaver.SignatureUtils;
-import org.springframework.beans.factory.NamedBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

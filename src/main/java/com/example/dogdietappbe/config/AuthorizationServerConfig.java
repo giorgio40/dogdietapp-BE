@@ -29,10 +29,10 @@ public class AuthorizationServerConfig
     @Value("${OAUTHCLIENTSECRET:}")
     private String CLIENT_SECRET;
 //        ; read from environment variable
-//    static final String CLIENT_ID = System.getenv("OAUTHCLIENTID");
+//    private static final String CLIENT_ID = System.getenv("OAUTHCLIENTID");
 //
-//    static final String CLIENT_SECRET = System.getenv("OAUTHCLIENTSECRET"); // read from environment variable
-//
+//    private static final String CLIENT_SECRET = System.getenv("OAUTHCLIENTSECRET"); // read from environment variable
+////
 
     /**
      * We are using username and password to authenticate a user

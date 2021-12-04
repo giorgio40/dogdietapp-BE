@@ -21,11 +21,11 @@ public class RoleServiceImpl
     /**
      *
      */
-     @Autowired
-     RoleRepository rolerepos;
+    @Autowired
+    RoleRepository rolerepos;
 
-     /**
-      * Connect this service to the User Model
+    /**
+     * Connect this service to the User Model
      */
     @Autowired
     UserRepository userrepos;
@@ -38,8 +38,7 @@ public class RoleServiceImpl
 
 
     @Override
-    public Role findRoleById(long id)
-    {
+    public Role findRoleById(long id) {
         return rolerepos.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Role id " + id + " not found!"));
     }
@@ -47,21 +46,28 @@ public class RoleServiceImpl
 
     @Transactional
     @Override
-    public Role save(Role role)
-    {
+    public Role save(Role role) {
         if (role.getUsers()
-                .size() > 0)
-        {
+                .size() > 0) {
             throw new ResourceFoundException("User Roles are not updated through Role.");
         }
 
         return rolerepos.save(role);
     }
-
     @Override
-    public Role findByName(String user) {
-        return null;
+    public Role findByName(String name)
+    {
+        Role rr = rolerepos.findByNameIgnoreCase(name);
+
+        if (rr != null)
+        {
+            return rr;
+        } else
+        {
+            throw new ResourceNotFoundException(name);
+        }
     }
-
-
 }
+
+
+

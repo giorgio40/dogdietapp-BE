@@ -16,8 +16,7 @@ public class Role {
     /**
      * The name (String) of the role. Cannot be null and must be unique.
      */
-    @NotNull
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
 
@@ -39,15 +38,15 @@ public class Role {
     {
     }
 
-    /**
+    public Role(String name) {
+        this.name = name;
+    }
+/**
      * Given the name, create a new role object. User gets added later
      *
      * @param name the name of the role in uppercase
      */
-    public Role(String name)
-    {
-        this.name = name.toUpperCase();
-    }
+
 
     /**
      * Getter for role id
@@ -69,24 +68,12 @@ public class Role {
         this.roleid = roleid;
     }
 
-    /**
-     * Getter for role name
-     *
-     * @return role name (String) in uppercase
-     */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    /**
-     * Setter for role name
-     *
-     * @param name the new role name (String) for this role, in uppercase
-     */
-    public void setName(String name)
-    {
-        this.name = name.toUpperCase();
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -108,6 +95,8 @@ public class Role {
     {
         this.users = users;
     }
+
+
 }
 
 

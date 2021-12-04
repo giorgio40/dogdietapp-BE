@@ -28,10 +28,9 @@ public class ResourceServerConfig
                 throws
                 Exception {
             http.authorizeRequests()
-                    .antMatchers("/",
+                    .antMatchers(
                             "/h2-console/**",
-                            "/createnewuser",
-                            "/login")
+                    "/register")
                     .permitAll()
                     .antMatchers("/users/**",
                             "/dogs/**",

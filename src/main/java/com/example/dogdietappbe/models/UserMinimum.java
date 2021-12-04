@@ -3,12 +3,15 @@ package com.example.dogdietappbe.models;
 public class UserMinimum {
     private String username;
 
-    private String email;
+
 
     /**
      * The user's password (String)
      */
     private String password;
+
+    private String email;
+
 
     public UserMinimum() {
     }

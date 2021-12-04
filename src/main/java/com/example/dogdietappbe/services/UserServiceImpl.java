@@ -14,7 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 @Transactional
-@Service(value = "userService")
+@Service(value = "userservice")
 public class UserServiceImpl
         implements UserService {
     @Autowired
@@ -51,15 +51,7 @@ public class UserServiceImpl
                     .add(new UserRoles(newUser,
                             addRole));
         }
-        newUser.getUseremails()
-                .clear();
-        for (Useremail ue : user.getUseremails())
-        {
-            newUser.getUseremails()
-                    .add(new Useremail(ue.getUseremail(),
-                            newUser));
 
-        }
 
         return userrepos.save(newUser);
     }
