@@ -33,69 +33,69 @@ public class OpenController {
     @Autowired
     private TokenStore tokenStore;
 
-    @PostMapping(value = "/register",
-            consumes = {"application/json"},
-            produces = {"application/json"})
-    public ResponseEntity<?> addSelf(
-            HttpServletRequest httpServletRequest,
-            @Valid
-            @RequestBody
-                    UserMinimum newminuser)
-            throws
-            Exception
-    {
-        // Create the user
-        User newuser = new User();
-
-        newuser.setUsername(newminuser.getUsername());
-        newuser.setPassword(newminuser.getPassword());
-        newuser.setEmail(newminuser.getEmail());
-
-        newuser = userService.save(newuser);
-
-        // set the location header for the newly created resource
-        // The location comes from a different controller!
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromUriString(httpServletRequest.getServerName() + ":" + httpServletRequest.getLocalPort() +
-                        "/users/{userId}")
-                .buildAndExpand(newuser.getUserid())
-                .toUri();
-        responseHeaders.setLocation(newUserURI);
-
-        // return the access token
-        RestTemplate restTemplate = new RestTemplate();
-        String requestURI = "http://localhost" + ":" + httpServletRequest.getLocalPort() + "/api/login";
-
-        List<MediaType> acceptableMediaTypes = new ArrayList<>();
-        acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setAccept(acceptableMediaTypes);
-        headers.setBasicAuth(System.getenv("OAUTHCLIENTID"),
-                System.getenv("OAUTHCLIENTSECRET"));
-
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("grant_type",
-                "password");
-        map.add("scope",
-                "read write trust");
-        map.add("username",
-                newminuser.getUsername());
-        map.add("password",
-                newminuser.getPassword());
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map,
-                headers);
-
-        String theToken = restTemplate.postForObject(requestURI,
-                request,
-                String.class);
-
-        return new ResponseEntity<>(theToken,
-                responseHeaders,
-                HttpStatus.CREATED);
-    }
+//    @PostMapping(value = "/register",
+//            consumes = {"application/json"},
+//            produces = {"application/json"})
+//    public ResponseEntity<?> addSelf(
+//            HttpServletRequest httpServletRequest,
+//            @Valid
+//            @RequestBody
+//                    UserMinimum newminuser)
+//            throws
+//            Exception
+//    {
+//        // Create the user
+//        User newuser = new User();
+//
+//        newuser.setUsername(newminuser.getUsername());
+//        newuser.setPassword(newminuser.getPassword());
+//        newuser.setEmail(newminuser.getEmail());
+//
+//        newuser = userService.save(newuser);
+//
+//        // set the location header for the newly created resource
+//        // The location comes from a different controller!
+//        HttpHeaders responseHeaders = new HttpHeaders();
+//        URI newUserURI = ServletUriComponentsBuilder.fromUriString(httpServletRequest.getServerName() + ":" + httpServletRequest.getLocalPort() +
+//                        "/users/{userId}")
+//                .buildAndExpand(newuser.getUserid())
+//                .toUri();
+//        responseHeaders.setLocation(newUserURI);
+//
+//        // return the access token
+//        RestTemplate restTemplate = new RestTemplate();
+//        String requestURI = "http://localhost" + ":" + httpServletRequest.getLocalPort() + "/api/login";
+//
+//        List<MediaType> acceptableMediaTypes = new ArrayList<>();
+//        acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//        headers.setAccept(acceptableMediaTypes);
+//        headers.setBasicAuth(System.getenv("OAUTHCLIENTID"),
+//                System.getenv("OAUTHCLIENTSECRET"));
+//
+//        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+//        map.add("grant_type",
+//                "password");
+//        map.add("scope",
+//                "read write trust");
+//        map.add("username",
+//                newminuser.getUsername());
+//        map.add("password",
+//                newminuser.getPassword());
+//
+//        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map,
+//                headers);
+//
+//        String theToken = restTemplate.postForObject(requestURI,
+//                request,
+//                String.class);
+//
+//        return new ResponseEntity<>(theToken,
+//                responseHeaders,
+//                HttpStatus.CREATED);
+//    }
 
 //    @PostMapping(value = "/login", produces = "application/json", consumes = "application/json")
 //    public ResponseEntity<?> loginSelf(HttpServletRequest req, @Valid @RequestBody LoginCreds creds)
