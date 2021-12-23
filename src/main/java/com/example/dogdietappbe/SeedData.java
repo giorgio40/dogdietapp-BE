@@ -130,7 +130,7 @@ public class SeedData implements CommandLineRunner {
         d1.getSupplements().add(new DogSupplements(standardprocesscholine, d1, 1));
         d1.getSupplements().add(new DogSupplements(wholefoodszinc, d1, 1));
         d1.getSupplements().add(new DogSupplements(StandardProcessvitE, d1, 1));
-
+        d1.getSupplements().add(new DogSupplements(kalBonemeal,d1,4));
         dogrepos.save(d1);
 
         d2.getProteins().add(new DogProteins(d2, beefkidney, 6));
@@ -165,7 +165,7 @@ public class SeedData implements CommandLineRunner {
         d3.getSupplements().add(new DogSupplements(standardProcessWheatGermOil, d3, 1));
         d3.getSupplements().add(new DogSupplements(solgarcholine, d3, 1));
         d3.getSupplements().add(new DogSupplements(starwestBotanicalsKelp, d3, 3));
-
+        d3.getSupplements().add(new DogSupplements(seasalt,d3,1));
         dogrepos.save(d3);
 
 
@@ -202,7 +202,7 @@ public class SeedData implements CommandLineRunner {
         d5.getSupplements().add(new DogSupplements(NowKPotassiumChloride, d5, 1));
         d5.getSupplements().add(new DogSupplements(standardprocesscholine, d5, 1));
         d5.getSupplements().add(new DogSupplements(starwestBotanicalsKelp, d5, 3));
-
+        d5.getSupplements().add(new DogSupplements(seasalt,d5,1));
         dogrepos.save(d5);
 
         d6.getProteins().add(new DogProteins(d6, beefkidney, 30));
@@ -219,7 +219,7 @@ public class SeedData implements CommandLineRunner {
         d6.getSupplements().add(new DogSupplements(standardprocesscholine, d6, 1));
         d6.getSupplements().add(new DogSupplements(iron, d6, 1));
         d6.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate, d6, 2));
-
+        d6.getSupplements().add(new DogSupplements(seasalt,d6,1));
         dogrepos.save(d6);
 
         d7.getProteins().add(new DogProteins(d7, beefkidney, 25));
@@ -236,7 +236,7 @@ public class SeedData implements CommandLineRunner {
         d7.getSupplements().add(new DogSupplements(NutivaHempSeed, d7, 10));
         d7.getSupplements().add(new DogSupplements(standardprocesscholine, d7, 1));
         d7.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate, d7, 2));
-
+        d7.getSupplements().add(new DogSupplements(seasalt,d7,1));
         dogrepos.save(d7);
 
         d8.getProteins().add(new DogProteins(d8, beefkidney, 25));
@@ -245,7 +245,6 @@ public class SeedData implements CommandLineRunner {
         d8.getProteins().add(new DogProteins(d8, pinksalmon, 20));
         d8.getVegetables().add(new DogVegetables(broccoli, d8, 80));
         d8.getVegetables().add(new DogVegetables(spinach, d8, 133));
-        d8.getVegetables().add(new DogVegetables(kale, d8, 60));
         d8.getFats().add(new DogFat(coconutoil, d8, 95));
         d8.getSupplements().add(new DogSupplements(kalBonemeal, d8, 10));
         d8.getSupplements().add(new DogSupplements(NowKPotassiumChloride, d8, 1));
@@ -254,7 +253,7 @@ public class SeedData implements CommandLineRunner {
         d8.getSupplements().add(new DogSupplements(NutivaHempSeed, d8, 10));
         d8.getSupplements().add(new DogSupplements(Naturemadethiamine, d8, 1));
         d8.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate, d8, 2));
-
+        d8.getSupplements().add(new DogSupplements(seasalt,d8,1));
         dogrepos.save(d8);
 
         d9.getProteins().add(new DogProteins(d9, beefkidney, 30));
@@ -292,6 +291,7 @@ public class SeedData implements CommandLineRunner {
         d10.getSupplements().add(new DogSupplements(standardProcessZincLiverChelate, d10, 3));
         d10.getSupplements().add(new DogSupplements(standardprocesscholine, d10, 1));
         d10.getSupplements().add(new DogSupplements(NowKPotassiumChloride, d10, 1));
+        d10.getSupplements().add(new DogSupplements(seasalt,d10,1));
 
         dogrepos.save(d10);
 
